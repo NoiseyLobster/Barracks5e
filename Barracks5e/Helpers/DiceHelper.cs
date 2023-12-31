@@ -4,10 +4,19 @@ namespace Barracks5e
     {
         private static readonly Random RandomNumberGenerator = new();
 
-        public static int Roll(int sides)
+        public static int Roll(int sides, DiceRollType diceRollType = DiceRollType.Standard)
         {
             //excludes upper boundary on random number roll, thus increment by 1
-            return RandomNumberGenerator.Next(1, sides + 1);
+            int roll = RandomNumberGenerator.Next(1, sides + 1);
+            if(diceRollType != DiceRollType.Standard) 
+            {
+                int secondRoll = RandomNumberGenerator.Next(1, sides + 1);
+                roll = (diceRollType == DiceRollType.Advantage) ? 
+                    Math.Max(roll, secondRoll) :
+                    Math.Min(roll, secondRoll);
+            }
+
+            return roll;
         }
 
         public static List<int> Roll(int sides, int numOfDice)
@@ -55,5 +64,12 @@ namespace Barracks5e
 
             return diceRolls;
         }
+    }
+
+    public enum DiceRollType
+    {
+        Standard,
+        Advantage,
+        Disadvantage
     }
 }
