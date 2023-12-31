@@ -3,63 +3,140 @@ using System.Linq;
 
 namespace Barracks5e
 {
-    public class Person
+    public class Person(Race race)
     {
-        public Class AdventureClass { get; private set; }
+        #region Properties
 
-        public Race FantasyRace { get; private set; }
+        public Race FantasyRace { get; protected set; } = race;
 
-        private int Strength { get; set; }
+        public int Level { get; protected set; }
+
+        public int HitPoints { get; protected set; }
+
+        public int ArmorClass { get; protected set; }
+
+        #region Weapon & Equipment
+
+        public Hand WeaponEncumberance 
+        {
+            get 
+            {
+                if(EquippedWeaponRight == Weapon.Unarmed && EquippedWeaponLeft == Weapon.Unarmed)
+                {
+                    return Hand.Empty;
+                }
+                else if(EquippedWeaponRight != Weapon.Unarmed && EquippedWeaponLeft != Weapon.Unarmed)
+                {
+                    return Hand.Both;
+                }
+                else if(EquippedWeaponRight != Weapon.Unarmed && EquippedWeaponLeft == Weapon.Unarmed)
+                {
+                    return Hand.Right;
+                }
+                else 
+                {
+                    return Hand.Left;
+                }
+            }
+        }
+
+        public Weapon EquippedWeaponRight { get; protected set; } = Weapon.Unarmed;
+
+        public Weapon EquippedWeaponLeft { get; protected set; } = Weapon.Unarmed;
+
+        public Armor EquippedArmor { get; protected set; } = Armor.Unarmored;
+
+        public bool IsShieldEquipped { get; set; } = false;
+
+        #endregion
+
+        #region Hit Dice Properties
+
+        protected int HitDiceType { get; set; } = 6;
+
+        protected int HitDiceCount { get; set; }
+
+        protected int HitDiceRemaining { get; set; }
+
+        #endregion
+
+        #region Ability Score Properties
+
+        protected int Strength { get; set; }
 
         public int StrengthMod
         {
             get { return ConvertStatToModifier(Strength); }
         }
 
-        private int Dexterity { get; set; }
+        protected int Dexterity { get; set; }
 
         public int DexterityMod
         {
             get { return ConvertStatToModifier(Dexterity); }
         }
 
-        private int Constitution { get; set; }
+        protected int Constitution { get; set; }
 
         public int ConstitutionMod
         {
             get { return ConvertStatToModifier(Constitution); }
         }
 
-        private int Intelligence { get; set; }
+        protected int Intelligence { get; set; }
 
         public int IntelligenceMod
         {
             get { return ConvertStatToModifier(Intelligence); }
         }
 
-        private int Wisdom { get; set; }
+        protected int Wisdom { get; set; }
 
         public int WisdomMod
         {
             get { return ConvertStatToModifier(Wisdom); }
         }
 
-        private int Charisma { get; set; }
+        protected int Charisma { get; set; }
 
         public int CharismaMod
         {
             get { return ConvertStatToModifier(Charisma); }
         }
 
-        private List<int> AbilityScores { get; set; }
+        protected List<int> AbilityScores { get; set; } = GenerateAbilityScores();
 
-        private const string FANTASY_RACE_STATS_FILE_LOCATION = @"Content\BaseStats\FantasyRace.json";
+        #endregion
 
-        public Person(Race race, Class adventureClass)
+        #region Proficiencies
+
+        protected List<ArmorType> ArmorProficiencies { get; set; } = [];
+
+        protected List<WeaponType> WeaponProficiencies { get; set; } = [];
+
+        protected List<ToolType> ToolProficiencies { get; set; } = [];
+
+        protected List<AbilityScoreType> SavingThrowProficiencies { get; set; } = [];
+
+        protected List<Resistance> Resistances { get; set; } = [];
+
+        #endregion
+
+        #endregion
+
+        #region Private/Internal Methods
+
+        private static int ConvertStatToModifier(int stat)
         {
-            AdventureClass = adventureClass;
-            FantasyRace = race;
+            return (stat - 10) / 2; //integer math
+        }
 
+        #endregion
+
+        #region Protected/Public Methods
+
+        protected static List<int> GenerateAbilityScores()
+        {
             List<int> abilityScores = new(6);
             for (int i = 0; i < 6; i++)
             {
@@ -70,44 +147,23 @@ namespace Barracks5e
                 abilityScores.Add(diceRolls.Sum());
             }
 
-            //sort our ability scores to make assignment easier
-            AbilityScores = abilityScores.OrderByDescending(abilityScore => abilityScore).ToList();
+            //sort our ability scores to make assignment easier and return
+            return abilityScores.OrderByDescending(abilityScore => abilityScore).ToList();
+        }
 
-            //lookup the default stats for whichever fantasy race this person belongs to
-            using StreamReader reader = new(FANTASY_RACE_STATS_FILE_LOCATION);
+        protected static FantasyRace FetchDefaultBuffsByRace(Race fantasyRace)
+        {
+            using StreamReader reader = new(@"Content\BaseStats\FantasyRace.json");
             string json = reader.ReadToEnd();
-            List<FantasyRaceJson> fantasyRaces = JsonConvert.DeserializeObject<List<FantasyRaceJson>>(json) ?? [];
+
+            List<FantasyRaceJson> statsCollection = JsonConvert.DeserializeObject<List<FantasyRaceJson>>(json) ?? [];
 
             //filter for the selected fantasy race
-            FantasyRaceJson selectedRace = fantasyRaces?.Find(fantasyRace => fantasyRace.Race == race) ?? new();
-            AbilityScoreModifiersJson selectedRaceAbilityScoreBuffs = selectedRace?.DefaultStats.AbilityScores ?? new();
+            FantasyRaceJson selection = statsCollection?.Find(selection => selection.Race == fantasyRace) ?? new();
 
-            //assign ability scores based on selected class
-            switch (adventureClass)
-            {
-                case Class.Barbarian:
-                    Strength = selectedRaceAbilityScoreBuffs.StrengthBuff + AbilityScores[0];
-                    Constitution = selectedRaceAbilityScoreBuffs.ConstitutionBuff + AbilityScores[1];
-                    Dexterity = selectedRaceAbilityScoreBuffs.DexterityBuff + AbilityScores[2];
-                    Wisdom = selectedRaceAbilityScoreBuffs.WisdomBuff + AbilityScores[3];
-                    Charisma = selectedRaceAbilityScoreBuffs.CharismaBuff + AbilityScores[4];
-                    Intelligence = selectedRaceAbilityScoreBuffs.IntelligenceBuff + AbilityScores[5];
-                    break;
-                //TODO: Other class assignments
-                default:
-                    Strength = selectedRaceAbilityScoreBuffs.StrengthBuff + AbilityScores[0];
-                    Constitution = selectedRaceAbilityScoreBuffs.ConstitutionBuff + AbilityScores[1];
-                    Dexterity = selectedRaceAbilityScoreBuffs.DexterityBuff + AbilityScores[2];
-                    Wisdom = selectedRaceAbilityScoreBuffs.WisdomBuff + AbilityScores[3];
-                    Charisma = selectedRaceAbilityScoreBuffs.CharismaBuff + AbilityScores[4];
-                    Intelligence = selectedRaceAbilityScoreBuffs.IntelligenceBuff + AbilityScores[5];
-                    break;
-            }
+            return new FantasyRace(selection);
         }
 
-        private static int ConvertStatToModifier(int stat)
-        {
-            return (stat - 10) / 2; //integer math
-        }
+        #endregion
     }
 }
