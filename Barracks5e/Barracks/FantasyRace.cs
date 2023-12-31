@@ -2,6 +2,46 @@ using System.Runtime.Serialization;
 
 namespace Barracks5e
 {
+    public class FantasyRace 
+    {
+        public Size Size { get; set; }
+
+        public int Speed { get; set; }
+
+        public int Darkvision { get; set; }
+
+        public List<Language> Languages = [];
+
+        public int StrengthBuff { get; set; } = 0;
+
+        public int DexterityBuff { get; set; } = 0;
+
+        public int ConstitutionBuff { get; set; } = 0;
+
+        public int IntelligenceBuff { get; set; } = 0;
+
+        public int WisdomBuff { get; set; } = 0;
+
+        public int CharismaBuff { get; set; } = 0;
+
+        public FantasyRace(FantasyRaceJson json) 
+        {
+            DefaultStatsJson stats = json.DefaultStats;
+            
+            Size = stats.Size;
+            Speed = stats.Speed;
+            Darkvision = stats.Darkvision;
+            Languages = stats.Languages;
+
+            StrengthBuff = stats.AbilityScores.StrengthBuff;
+            DexterityBuff = stats.AbilityScores.DexterityBuff;
+            ConstitutionBuff = stats.AbilityScores.ConstitutionBuff;
+            IntelligenceBuff = stats.AbilityScores.IntelligenceBuff;
+            WisdomBuff = stats.AbilityScores.WisdomBuff;
+            CharismaBuff = stats.AbilityScores.CharismaBuff;
+        } 
+    }
+
     [DataContract]
     public class FantasyRaceJson
     {
@@ -28,7 +68,7 @@ namespace Barracks5e
         public int Darkvision { get; set; }
 
         [DataMember(Name = "languages")]
-        List<Languages> Languages = [];
+        public List<Language> Languages = [];
 
     }
 

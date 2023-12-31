@@ -36,11 +36,11 @@ namespace Barracks5e
         Large
     }
 
-    public enum Languages
+    public enum Hand
     {
-        OPEN,
-        Common,
-        Infernal,
-        Orcish
+        Empty,
+        Right,
+        Left,
+        Both
     }
 }
