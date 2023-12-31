@@ -61,19 +61,10 @@ namespace Barracks5e
             FantasyRace = race;
 
             List<int> abilityScores = new(6);
-            Random randomNum = new();
             for (int i = 0; i < 6; i++)
             {
-                List<int> diceRolls = [];
-
-                //roll a six-sided dice four times
-                diceRolls.Add(randomNum.Next(1, 7));
-                diceRolls.Add(randomNum.Next(1, 7));
-                diceRolls.Add(randomNum.Next(1, 7));
-                diceRolls.Add(randomNum.Next(1, 7));
-
-                //remove the lowest value
-                diceRolls.Remove(diceRolls.Min());
+                //roll a six-sided dice four times and remove the lowest from the set
+                List<int> diceRolls = DiceHelper.RollWithExclusions(6, 4, 1);
 
                 //store the sum of the rest as our ability score
                 abilityScores.Add(diceRolls.Sum());
