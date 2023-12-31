@@ -32,18 +32,6 @@ namespace Barracks5e
             return diceRolls;
         }
 
-        public static int RollWithAdvantage(int sides)
-        {
-            List<int> diceRoll = RollWithExclusions(sides, 2, 1, true);
-            return diceRoll.First();
-        }
-
-        public static int RollWithDisadvantage(int sides)
-        {
-            List<int> diceRoll = RollWithExclusions(sides, 2, 1, false);
-            return diceRoll.First();
-        }
-
         public static List<int> RollWithExclusions(int sides, int numOfDice, int numToExclude, bool excludeLowest = true)
         {
             List<int> diceRolls = Roll(sides, numOfDice);
