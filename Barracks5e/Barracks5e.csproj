@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Content\BaseStats\FantasyRace.json">
+    <None Update="Stats\FantasyRace\FantasyRace.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
