@@ -43,4 +43,18 @@ namespace Barracks5e
         Left,
         Both
     }
+
+    public enum DraconicAncestry
+    {
+        Black,
+        Blue,
+        Brass,
+        Bronze,
+        Copper,
+        Gold,
+        Green,
+        Red,
+        Silver,
+        White
+    }
 }

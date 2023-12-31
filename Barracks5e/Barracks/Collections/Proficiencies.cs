@@ -75,6 +75,11 @@ namespace Barracks5e
     {
         Bludgeoning,
         Piercing,
-        Slashing
+        Slashing,
+        Fire,
+        Cold,
+        Poison,
+        Acid,
+        Lightning
     }
 }

@@ -1,0 +1,239 @@
+[
+    {
+        "race": "dwarf",
+        "defaultStats": {
+            "abilityScore": {
+                "strength": 0,
+                "dexterity": 0,
+                "constitution": 2,
+                "intelligence": 0,
+                "wisdom": 0,
+                "charisma": 0
+            },
+            "size": "medium",
+            "speed": 25,
+            "darkvision": 60,
+            "languages": [
+                "Common",
+                "Dwarvish"
+            ],
+            "feats": [
+                "DwarvenResilience",
+                "DwarvenCombatTraining",
+                "ToolProficiency",
+                "Stonecunning"
+            ]
+        }
+    },
+    {
+        "race": "elf",
+        "defaultStats": {
+            "abilityScore": {
+                "strength": 0,
+                "dexterity": 2,
+                "constitution": 0,
+                "intelligence": 0,
+                "wisdom": 0,
+                "charisma": 0
+            },
+            "size": "medium",
+            "speed": 30,
+            "darkvision": 60,
+            "languages": [
+                "Common",
+                "Elvish"
+            ],
+            "feats": [
+                "KeenSenses",
+                "FeyAncestry",
+                "Trance"
+            ]
+        }
+    },
+    {
+        "race": "halfling",
+        "defaultStats": {
+            "abilityScore": {
+                "strength": 0,
+                "dexterity": 2,
+                "constitution": 0,
+                "intelligence": 0,
+                "wisdom": 0,
+                "charisma": 0
+            },
+            "size": "small",
+            "speed": 25,
+            "languages": [
+                "Common",
+                "Halfling"
+            ],
+            "feats": [
+                "Lucky",
+                "Brave",
+                "HalflingNimbleness"
+            ]
+        }
+    },
+    {
+        "race": "human",
+        "defaultStats": {
+            "abilityScore": {
+                "strength": 1,
+                "dexterity": 1,
+                "constitution": 1,
+                "intelligence": 1,
+                "wisdom": 1,
+                "charisma": 1
+            },
+            "size": "medium",
+            "speed": 30,
+            "languages": [
+                "Common",
+                "OPEN"
+            ]
+        }
+    },
+    {
+        "race": "dragonborn",
+        "defaultStats": {
+            "abilityScore": {
+                "strength": 2,
+                "dexterity": 0,
+                "constitution": 0,
+                "intelligence": 0,
+                "wisdom": 0,
+                "charisma": 1
+            },
+            "size": "medium",
+            "speed": 30,
+            "languages": [
+                "Common",
+                "Draconic"
+            ],
+            "feats": [
+                "DraconicAncestry",
+                "BreathWeapon",
+                "DamageResistance"
+            ]
+        }
+    },
+    {
+        "race": "gnome",
+        "defaultStats": {
+            "abilityScore": {
+                "strength": 0,
+                "dexterity": 0,
+                "constitution": 0,
+                "intelligence": 2,
+                "wisdom": 0,
+                "charisma": 0
+            },
+            "size": "small",
+            "speed": 25,
+            "darkvision": 60,
+            "languages": [
+                "Common",
+                "Gnomish"
+            ],
+            "feats": [
+                "GnomeCunning"
+            ]
+        }
+    },
+    {
+        "race": "halfElf",
+        "defaultStats": {
+            "abilityScore": {
+                "strength": 1,
+                "dexterity": 1,
+                "constitution": 0,
+                "intelligence": 0,
+                "wisdom": 0,
+                "charisma": 2
+            },
+            "size": "medium",
+            "speed": 30,
+            "darkvision": 60,
+            "languages": [
+                "OPEN",
+                "Common",
+                "Elvish"
+            ],
+            "feats": [
+                "FeyAncestry",
+                "SkillVersatility"
+            ]
+        }
+    },
+    {
+        "race": "tiefling",
+        "defaultStats": {
+            "abilityScore": {
+                "strength": 0,
+                "dexterity": 0,
+                "constitution": 0,
+                "intelligence": 1,
+                "wisdom": 0,
+                "charisma": 2
+            },
+            "size": "medium",
+            "speed": 30,
+            "darkvision": 60,
+            "resistances": [
+                "Fire"
+            ],
+            "languages": [
+                "Common",
+                "Infernal"
+            ],
+            "spells": {
+                "spellcastingAbility": "charisma",
+                "spellList": [
+                    {
+                        "name": "Thaumaturgy",
+                        "castLevel": 0,
+                        "aquiredLevel": 1,
+                        "usePerLongRest": 9999
+                    },
+                    {
+                        "name": "HellishRebuke",
+                        "castLevel": 2,
+                        "aquiredLevel": 3,
+                        "usePerLongRest": 1
+                    },
+                    {
+                        "name": "Darkness",
+                        "castLevel": 2,
+                        "aquiredLevel": 5,
+                        "usePerLongRest": 1
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "race": "halfOrc",
+        "defaultStats": {
+            "abilityScore": {
+                "strength": 2,
+                "dexterity": 0,
+                "constitution": 1,
+                "intelligence": 0,
+                "wisdom": 0,
+                "charisma": 0
+            },
+            "size": "medium",
+            "speed": 30,
+            "darkvision": 60,
+            "languages": [
+                "Common",
+                "Orcish"
+            ],
+            "feats": [
+                "Menacing",
+                "RelentlessEndurance",
+                "SavageAttacks"
+            ]
+        }
+    }
+]

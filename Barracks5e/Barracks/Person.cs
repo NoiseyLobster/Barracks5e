@@ -153,7 +153,7 @@ namespace Barracks5e
 
         protected static FantasyRace FetchDefaultBuffsByRace(Race fantasyRace)
         {
-            using StreamReader reader = new(@"Content\BaseStats\FantasyRace.json");
+            using StreamReader reader = new(@"Stats\FantasyRace\FantasyRace.json");
             string json = reader.ReadToEnd();
 
             List<FantasyRaceJson> statsCollection = JsonConvert.DeserializeObject<List<FantasyRaceJson>>(json) ?? [];
